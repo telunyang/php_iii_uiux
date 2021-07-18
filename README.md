@@ -1,5 +1,5 @@
 # php_iii_uiux
-資策會 UIUX 班 php 課程
+資策會 UIUX 班 PHP 課程
 
 ## 上課影片播放列表
 [YouTube Playlist: MMMH61](https://www.youtube.com/playlist?list=PLV4FeK54eNbzDZLD50LFpkI3AZ4FJ-j8o "MMMH61")
@@ -23,17 +23,17 @@
 
 
 ## 目次
-一、PHP標籤（<?php … ?>）	1
-二、變數	3
-三、字串	9
-四、運算子	14
-五、流程控制	18
-六、陣列	25
-七、GET與POST	35
-八、函式	47
-九、COOKIE與SESSION	50
-十、正規表示法（正規表達式）	58
-十一、檔案系統	68
-十二、時間處理	72
-十三、PDO資料庫連線設定	75
-十四、套件管理工具composer	78
+- 一、PHP標籤（<?php … ?>）	1
+- 二、變數	3
+- 三、字串	9
+- 四、運算子	14
+- 五、流程控制	18
+- 六、陣列	25
+- 七、GET與POST	35
+- 八、函式	47
+- 九、COOKIE與SESSION	50
+- 十、正規表示法（正規表達式）	58
+- 十一、檔案系統	68
+- 十二、時間處理	72
+- 十三、PDO資料庫連線設定	75
+- 十四、套件管理工具composer	78
