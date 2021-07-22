@@ -33,11 +33,8 @@ if( isset($_GET['url']) && $_GET['url'] !== '' ){
         $html = curl_exec($ch); //取得 html
         curl_close($ch); //關閉 curl
 
-        //取代斷行字串，讓過濾文字的效率提高
-        $html = str_replace(["\r", "\n"], '', $html);
-
         //以 Regular Expression 取得每一個 li[data-view] 的值
-        $regex = "/<li.+?data-preview='(.+?)'>/";
+        $regex = "/data-preview=['\"](.+)['\"]/";
 
         //執行正規表達式
         if( preg_match_all($regex, $html, $matches) ){
@@ -48,7 +45,7 @@ if( isset($_GET['url']) && $_GET['url'] !== '' ){
 
             //將比對到的資料，各別放至 $obj['result'] 當中 
             for($i = 0; $i < count($matches[1]); $i++){
-                //將特殊符號，轉成正常的文字 (例如 $nbsp; 和 &quot; 等)
+                //將特殊符號，轉成正常的文字 (例如 &quot; 變成 ")
                 $strJson = htmlspecialchars_decode($matches[1][$i]);
 
                 //將字串格式的 json，轉成 物件 (object)
