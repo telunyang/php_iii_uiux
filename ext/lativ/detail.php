@@ -11,6 +11,9 @@
 
     <!-- awesome css -->
     <link href="css/awesome.all.min.css" rel="stylesheet">
+
+    <!-- lightbox: https://lokeshdhakar.com/projects/lightbox2/ -->
+    <link href="css/lightbox.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid">
@@ -76,31 +79,76 @@
                 </ul>
             <?php } ?>
             </div>
+
             <div class="col-10">
-            <?php if(isset($_GET['sub_cat_id'])) { ?>
-                <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-                <?php
-                    $sql = "SELECT `id`, `prod_name`, `prod_thumbnail`, `prod_price` FROM `products` WHERE `cat_id` = {$_GET['sub_cat_id']}";
-                    $arr = $pdo->query($sql)->fetchAll();
-                    foreach($arr as $obj){
-                ?>
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <a href="detail.php?cat_id=<?= $_GET['cat_id'] ?>&prod_id=<?= $obj['id'] ?>"><img src="<?= $obj['prod_thumbnail'] ?>" class="card-img-top" alt="..."></a>
-                            <div class="card-body">
-                                <h5 class="card-title"><?= $obj['prod_name'] ?></h5>
-                                <p class="card-text">價格: <?= $obj['prod_price'] ?></p>
-                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            <?php 
+            if(isset($_GET['prod_id'])) { 
+                $sql = "SELECT * FROM `products` WHERE `id` = {$_GET['prod_id']}";
+                $obj = $pdo->query($sql)->fetch();
+            ?>
+                <div class="row">
+
+                    <div class="col-5 pt-3">
+                        <div class="text-center">
+                            <img src="<?= $obj['prod_image'] ?>" class="rounded" alt="<?= $obj['prod_name'] ?>" title="<?= $obj['prod_name'] ?>">
+                            <button id="zoom"><i class="fas fa-search-plus"></i></button>
+                        </div>
+                        <div class="text-center">
+                        <?php
+                        $sql = "SELECT * FROM `products_img` WHERE `func` = 'zoom' AND `prod_id` = {$_GET['prod_id']}";
+                        $arr = $pdo->query($sql)->fetchAll();
+                        foreach($arr as $objImg){
+                        ?>
+                            <a data-lightbox="roadtrip" href="<?= $objImg['filename'] ?>" style="display: none;">
+                            <img src="<?= $objImg['filename'] ?>" class="img-thumbnail figure-img img-fluid rounded float-start m-1" style="width: 100px;" alt="...">
+                            </a>
+                        <?php
+                        }
+                        ?>
+                        </div>
+                    </div>
+
+                    <div class="col-7">
+                        <div class="row p-3" style="border-bottom: 1px solid #999;">
+                            <div class="col-6"><h4><?= $obj['prod_name'] ?></h4></div>
+                            <div class="col-6"><p class="fs-1">NT: <?= $obj['prod_price'] ?></p></div>
+                        </div>
+                        <div class="row p-3" style="border-bottom: 1px solid #999;">
+                            <select class="form-select">
+                            <?php
+                                $sql = "SELECT * FROM `products_colors` WHERE `prod_id` = {$_GET['prod_id']}";
+                                $arr = $pdo->query($sql)->fetchAll();
+                                foreach($arr as $objColor){
+                            ?>
+                                <option value="<?= $objColor['color_name'] ?>"><?= $objColor['color_name'] ?></option>
+                            <?php
+                                }
+                            ?>
+                            </select>
+                        </div>
+                        <div class="row p-3" style="border-bottom: 1px solid #999;">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <button class="btn btn-outline-secondary" type="button" id="btn_minus"><i class="fas fa-minus"></i></button>
+                                    <input type="text" class="form-control" placeholder="" id="qty" value="1">
+                                    <button class="btn btn-outline-secondary" type="button" id="btn_plus"><i class="fas fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-dark">加入購物車</button>
                             </div>
                         </div>
                     </div>
-                <?php
-                    }
-                }
-                ?>
+
                 </div>
+            <?php 
+            } 
+            ?> 
             </div>
         </div>
+
+
+
     </div>
 
 
@@ -117,5 +165,12 @@
 
     <!-- awesome js -->
     <script src="js/awesome.all.min.js"></script>
+
+    <!-- lightbox: https://lokeshdhakar.com/projects/lightbox2/ -->
+    <script src="js/lightbox.min.js"></script>
+
+    <!-- 自訂 js -->
+    <script src="js/custom.js"></script>
+    
 </body>
 </html>
