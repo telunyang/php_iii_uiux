@@ -11,7 +11,7 @@
 - PHP IntelliSense
 專案與程式
 - Windows 環境裡，放置於 C:\xampp\htdocs\
-- http://localhost/ 或 http://127.0.0.1/
+- http://localhost/ 或 http://127.0.0.1/ (Mac是http://192.168.64.2/)
 學習、檢索 PHP 的網站
 - https://www.php.net/
 - https://www.runoob.com/php/php-tutorial.html
@@ -23,17 +23,17 @@
 
 
 ## 目次
-- 一、PHP標籤（<?php … ?>）	1
-- 二、變數	3
-- 三、字串	9
-- 四、運算子	14
-- 五、流程控制	18
-- 六、陣列	25
-- 七、GET與POST	35
-- 八、函式	47
-- 九、COOKIE與SESSION	50
-- 十、正規表示法（正規表達式）	58
-- 十一、檔案系統	68
-- 十二、時間處理	72
-- 十三、PDO資料庫連線設定	75
-- 十四、套件管理工具composer	78
+一、PHP標籤（<?php … ?>）	1
+二、變數	3
+三、字串	9
+四、運算子	14
+五、流程控制	18
+六、陣列	25
+七、GET與POST	36
+八、函式	48
+九、COOKIE與SESSION	51
+十、正規表示法（正規表達式）	60
+十一、檔案系統	70
+十二、時間處理	75
+十三、PDO資料庫連線設定	78
+十四、套件管理工具composer	83
