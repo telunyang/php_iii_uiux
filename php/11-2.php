@@ -4,7 +4,7 @@ $filePath03 = "tmp/test03.txt";
 
 //確認檔案存在，則進行檔案刪除
 if( file_exists($filePath01) ) {
-    $isDeleted = unlink($filePath01 );
+    $isDeleted = unlink($filePath01);
     if( $isDeleted ){
         echo "{$filePath01} 刪除成功!!";
     } else {
