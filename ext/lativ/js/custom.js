@@ -1,3 +1,8 @@
+//選擇生日
+$("input#birthdate").datepicker({
+    dateFormat: "yy-mm-dd"
+});
+
 //增加商品數量
 $(document).on('click', 'button#btn_plus', function(event){
     let input_qty = $('input#qty');
