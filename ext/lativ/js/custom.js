@@ -78,7 +78,7 @@ $('button#btn_register').click(function(event){
     $.post("insertUser.php", objUser, function(obj){
         if(obj['success']){
             //關閉 modal
-            $('div#exampleModal').toggle();
+            $('div#exampleModal').hide();
 
             //成功訊息
             alert('註冊成功');
@@ -123,7 +123,7 @@ $('button#btn_login').click(function(event){
     $.post("login.php", objUser, function(obj){
         if(obj['success']){
             //關閉 modal
-            $('div#exampleModalLogin').toggle();
+            $('div#exampleModalLogin').hide();
 
             //成功訊息
             alert('登入成功');
