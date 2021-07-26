@@ -1,4 +1,5 @@
 <?php require_once 'db.inc.php' ?>
+<?php session_start() ?>
 <?php
 //整合特定商品類別分頁的 SQL 字串
 $where = "";
@@ -69,12 +70,14 @@ $offset = ($page - 1) * $numPerPage;
                         </form>
 
                         <div class="text-end">
-                            <a class="btn btn-outline-light me-2" href="#">Login</a>
+                            <a class="btn btn-outline-light me-2" href="#"  data-bs-toggle="modal" data-bs-target="#exampleModalLogin">Login</a>
                             <a class="btn btn-warning" href="register.php" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign-up</a>
                         </div>
 
                         <div class="text-end">
-                            
+                        <?php if(isset($_SESSION['name'])){ ?>
+                            <?= $_SESSION['name'] ?> | <a href="#" id="logout" class="btn btn-link">登出</a>
+                        <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -168,14 +171,15 @@ $offset = ($page - 1) * $numPerPage;
                             for($i = 1; $i <= $totalPages; $i++){ 
 
                                 //當「目前第幾頁」($page)等於準備顯示在網頁上的分頁號碼($i)，以加上 class
-                                if($page === $i) $strClass = 'page-item active'; else $strClass = 'page-item';
+                                $strClass = '';
+                                if($page === $i) $strClass = 'active';
 
                                 //$i 列出的數字範圍，會大於「目前第幾頁」($page) 減 5，以及小於「目前第幾頁」($page) 加 5
                                 if ( $i > $page - 5 && $i < $page + 5 ) {
                             ?>
-                                <li class="<?php echo $strClass; ?>">
+                                <li class="page-item <?= $strClass; ?>">
                                     <a class="page-link" href="index.php?cat_id=<?= $_GET['cat_id'] ?>&sub_cat_id=<?= $_GET['sub_cat_id'] ?>&page=<?= $i ?>">
-                                        <?php echo $i; ?>
+                                        <?= $i ?>
                                     </a>
                                 </li>
                             <?php
@@ -222,7 +226,7 @@ $offset = ($page - 1) * $numPerPage;
                         </div>
                         <div class="col-md-6">
                             <label for="inputPassword4" class="form-label">密碼</label>
-                            <input type="password" class="form-control" id="password" placeholder="請輸入密碼">
+                            <input type="password" class="form-control" id="pwd" placeholder="請輸入密碼">
                         </div>
                         <div class="col-md-6">
                             <label for="inputEmail4" class="form-label">姓名</label>
@@ -245,6 +249,32 @@ $offset = ($page - 1) * $numPerPage;
         </div>
     </div>
 
+    <!-- 登入視窗 -->
+    <div class="modal fade" id="exampleModalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">登入</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" id="myForm_login">
+                        <div class="col-md-12">
+                            <label for="inputEmail4" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email_login" placeholder="請填寫 E-mail">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputPassword4" class="form-label">密碼</label>
+                            <input type="password" class="form-control" id="pwd_login" placeholder="請輸入密碼">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary" id="btn_login">送出</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -262,6 +292,9 @@ $offset = ($page - 1) * $numPerPage;
 
     <!-- awesome js -->
     <script src="js/awesome.all.min.js"></script>
+
+    <!-- lightbox: https://lokeshdhakar.com/projects/lightbox2/ -->
+    <script src="js/lightbox.min.js"></script>
 
     <!-- 自訂 js -->
     <script src="js/custom.js"></script>

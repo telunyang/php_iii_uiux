@@ -1,4 +1,5 @@
 <?php require_once 'db.inc.php' ?>
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,12 +47,14 @@
                         </form>
 
                         <div class="text-end">
-                            <a class="btn btn-outline-light me-2" href="#">Login</a>
-                            <a class="btn btn-warning" href="register.php">Sign-up</a>
+                            <a class="btn btn-outline-light me-2" href="#"  data-bs-toggle="modal" data-bs-target="#exampleModalLogin">Login</a>
+                            <a class="btn btn-warning" href="register.php" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign-up</a>
                         </div>
 
                         <div class="text-end">
-                            
+                        <?php if(isset($_SESSION['name'])){ ?>
+                            <?= $_SESSION['name'] ?> 您好 | <a href="#" class="btn btn-link">登出</a>
+                        <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -67,7 +70,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputPassword4" class="form-label">密碼</label>
-                    <input type="password" class="form-control" id="password" placeholder="請輸入密碼">
+                    <input type="password" class="form-control" id="pwd" placeholder="請輸入密碼">
                 </div>
                 <div class="col-md-6">
                     <label for="inputEmail4" class="form-label">姓名</label>
@@ -90,7 +93,32 @@
 
     
 
-
+    <!-- 登入視窗 -->
+    <div class="modal fade" id="exampleModalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">登入</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" id="myForm_login">
+                        <div class="col-md-12">
+                            <label for="inputEmail4" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email_login" placeholder="請填寫 E-mail">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputPassword4" class="form-label">密碼</label>
+                            <input type="password" class="form-control" id="pwd_login" placeholder="請輸入密碼">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary" id="btn_login">送出</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
  
 
 
@@ -107,6 +135,9 @@
 
     <!-- awesome js -->
     <script src="js/awesome.all.min.js"></script>
+
+    <!-- lightbox: https://lokeshdhakar.com/projects/lightbox2/ -->
+    <script src="js/lightbox.min.js"></script>
 
     <!-- 自訂 js -->
     <script src="js/custom.js"></script>
