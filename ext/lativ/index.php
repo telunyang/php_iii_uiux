@@ -45,7 +45,9 @@ $offset = ($page - 1) * $numPerPage;
             ?>
                 <div class="col">
                     <div class="card" style="width: 18rem;">
-                        <a href="detail.php?cat_id=<?= $_GET['cat_id'] ?>&sub_cat_id=<?= $_GET['sub_cat_id'] ?>&prod_id=<?= $obj['id'] ?>"><img src="<?= $obj['prod_thumbnail'] ?>" class="card-img-top" alt="..."></a>
+                        <a href="detail.php?cat_id=<?= $_GET['cat_id'] ?>&sub_cat_id=<?= $_GET['sub_cat_id'] ?>&prod_id=<?= $obj['id'] ?>">
+                            <img src="<?= $obj['prod_thumbnail'] ?>" class="card-img-top" alt="...">
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title"><?= $obj['prod_name'] ?></h5>
                             <p class="card-text">價格: <?= $obj['prod_price'] ?></p>

@@ -25,19 +25,19 @@
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
                         </a>
 
                         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <?php
-                            $sql = "SELECT `id`, `cat_name` FROM `categories` WHERE `parent_id` = 0";
-                            $arr = $pdo->query($sql)->fetchAll();
-                            foreach($arr as $obj){
-                        ?>
-                            <li><a href="index.php?cat_id=<?= $obj['id'] ?>" class="nav-link px-2 text-white"><?= $obj['cat_name'] ?></a></li>
-                        <?php
-                            }
-                        ?>
+                            <?php
+                                $sql = "SELECT `id`, `cat_name` FROM `categories` WHERE `parent_id` = 0";
+                                $arr = $pdo->query($sql)->fetchAll();
+                                foreach($arr as $obj){
+                            ?>
+                                <li><a href="index.php?cat_id=<?= $obj['id'] ?>" class="nav-link px-2 text-white"><?= $obj['cat_name'] ?></a></li>
+                            <?php
+                                }
+                            ?>
                         </ul>
 
                         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -50,9 +50,18 @@
                         </div>
 
                         <div class="text-end">
-                        <?php if(isset($_SESSION['name'])){ ?>
-                            <?= $_SESSION['name'] ?> | <a href="#" id="logout" class="btn btn-link">登出</a>
-                        <?php } ?>
+                            <?php if(isset($_SESSION['name'])){ ?>
+                                <?= $_SESSION['name'] ?> | <a href="#" id="logout" class="btn btn-link">登出</a>
+                            <?php } ?>
+                            |
+                            <span id="count_products">
+                                <?php 
+                                if(isset($_SESSION['count_products'])) 
+                                    echo $_SESSION['count_products']; 
+                                else 
+                                    echo '0'; 
+                                ?>
+                            </span> 個商品
                         </div>
                     </div>
                 </div>

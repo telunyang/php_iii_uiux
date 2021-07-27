@@ -86,7 +86,7 @@ $('button#btn_register').click(function(event){
             //當成功訊息執行同時，等數秒後，執行自訂程式
             setTimeout(function(){
                 location.reload();
-            }, 3000);
+            }, 1000);
         } else {
             alert(`${obj['info']}`);
         }
@@ -156,19 +156,44 @@ $('a#logout').click(function(event){
 });
 
 //增加商品數量
-$(document).on('click', 'button#btn_plus', function(event){
+$('button#btn_plus').click(function(event){
     let input_qty = $('input#qty');
     input_qty.val( parseInt(input_qty.val()) + 1 );
 });
 
 //減少商品數量
-$(document).on('click', 'button#btn_minus', function(event){
+$('button#btn_minus').click(function(event){
     let input_qty = $('input#qty');
     if( parseInt(input_qty.val()) - 1 < 1 ) return false;
     input_qty.val( parseInt(input_qty.val()) - 1 );
 });
 
 //商品詳細頁面照片 zoom in / out
-$(document).on('click', 'button#zoom', function(event){
+$('button#zoom').click(function(event){
     $('a[data-lightbox="roadtrip"]').eq(0).click();
+});
+
+//加入商品至購物車
+$('button#btn_set_cart').click(function(event){
+    //取得 button 的 jQuery 物件
+    let btn = $(this);
+
+    //送出 post 請求，加入購物車
+    let objProduct = {
+        prod_id: btn.attr('data-prod-id'),
+        prod_name: btn.attr('data-prod-name'),
+        prod_thumbnail: btn.attr('data-prod-thumbnail'),
+        prod_price: btn.attr('data-prod-price'),
+        prod_color: $('select#prod_color > option:selected').val(),
+        prod_qty: $('input#qty').val()
+    };
+    $.post("setCart.php", objProduct, function(obj){
+        if(obj['success']){
+            //成功訊息
+            alert('加入購物車成功');
+
+            //將網頁上的購物車商品數量更新
+            $('span#count_products').text(obj['count_products']);
+        }
+    }, 'json');
 });

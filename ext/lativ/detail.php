@@ -38,7 +38,7 @@
             </div>
 
             <div class="col-7">
-
+                
                 <div class="row p-3 border-bottom">
                     <div class="col-6"><h4><?= $obj['prod_name'] ?></h4></div>
                     <div class="col-6"><p class="fs-1">NT: <?= $obj['prod_price'] ?></p></div>
@@ -46,7 +46,7 @@
 
                 <div class="row p-3 border-bottom">
                     <label>顏色</label>
-                    <select class="form-select">
+                    <select class="form-select" id="prod_color">
                     <?php
                         $sql = "SELECT * FROM `products_colors` WHERE `prod_id` = {$_GET['prod_id']}";
                         $arr = $pdo->query($sql)->fetchAll();
@@ -67,14 +67,22 @@
                             <button class="btn btn-outline-secondary" type="button" id="btn_plus"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
-                    <div class="col-6 border-bottom">
-                        <button type="button" class="btn btn-dark">加入購物車</button>
+                    <div class="col-6">
+                        <button type="button" 
+                                class="btn btn-dark" 
+                                id="btn_set_cart" 
+                                data-prod-id="<?= $obj['id'] ?>"
+                                data-prod-name="<?= $obj['prod_name'] ?>"
+                                data-prod-thumbnail="<?= $obj['prod_thumbnail'] ?>"
+                                data-prod-price="<?= $obj['prod_price'] ?>">加入購物車</button>
                         <button type="button" class="btn btn-secondary">追蹤商品</button>
                     </div>
                 </div>
-
             </div>
+        </div>
 
+        <div class="row">
+            <!-- 如果還有商品其它描述或展示資訊，可以放在這裡 -->
         </div>
     <?php 
     } 
