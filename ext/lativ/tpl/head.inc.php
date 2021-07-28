@@ -54,14 +54,16 @@
                                 <?= $_SESSION['name'] ?> | <a href="#" id="logout" class="btn btn-link">登出</a>
                             <?php } ?>
                             |
-                            <span id="count_products">
-                                <?php 
-                                if(isset($_SESSION['count_products'])) 
-                                    echo $_SESSION['count_products']; 
-                                else 
-                                    echo '0'; 
-                                ?>
-                            </span> 個商品
+                            <a href="products_confirm.php">
+                                <span id="count_products">
+                                    <?php 
+                                    if(isset($_SESSION['cart'])) 
+                                        echo count($_SESSION['cart']); 
+                                    else 
+                                        echo '0'; 
+                                    ?>
+                                </span> 個商品
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -152,7 +152,8 @@ $('a#logout').click(function(event){
                 location.href = 'index.php';
             }, 1000);
         }
-    });
+        console.log(obj);
+    }, 'json');
 });
 
 //增加商品數量
@@ -166,6 +167,46 @@ $('button#btn_minus').click(function(event){
     let input_qty = $('input#qty');
     if( parseInt(input_qty.val()) - 1 < 1 ) return false;
     input_qty.val( parseInt(input_qty.val()) - 1 );
+});
+
+//增加商品數量(購物車)
+$('button.btn_plus').click(function(event){
+    //計算數量
+    let btn = $(this);
+    let index = btn.attr('data-index');
+    let prod_price = btn.attr('data-prod-price');
+    let input_qty = $(`input.qty[data-index="${index}"]`);
+    input_qty.val( parseInt(input_qty.val()) + 1 );
+
+    //修改商品金額
+    $(`span[data-index="${index}"]`).text( input_qty.val() * prod_price );
+
+    //更新總計
+    let total = 0;
+    $(`input.qty`).each(function(index, element){
+        total += ( parseInt($(element).val()) * parseInt($(element).attr('data-prod-price')) );
+    });
+    $('span#total').text(total);
+});
+
+//減少商品數量(購物車)
+$('button.btn_minus').click(function(event){
+    let btn = $(this);
+    let index = btn.attr('data-index');
+    let prod_price = btn.attr('data-prod-price');
+    let input_qty = $(`input.qty[data-index="${index}"]`);
+    if( parseInt(input_qty.val()) - 1 < 1 ) return false;
+    input_qty.val( parseInt(input_qty.val()) - 1 );
+
+    //修改商品金額
+    $(`span[data-index="${index}"]`).text( input_qty.val() * prod_price );
+
+    //更新總計
+    let total = 0;
+    $(`input.qty`).each(function(index, element){
+        total += ( parseInt($(element).val()) * parseInt($(element).attr('data-prod-price')) );
+    });
+    $('span#total').text(total);
 });
 
 //商品詳細頁面照片 zoom in / out
@@ -195,5 +236,24 @@ $('button#btn_set_cart').click(function(event){
             //將網頁上的購物車商品數量更新
             $('span#count_products').text(obj['count_products']);
         }
+        console.log(obj);
+    }, 'json');
+});
+
+//刪除購物車內商品
+$('a.delete').click(function(event){
+    //避免元素的預設事件被觸發
+    event.preventDefault();
+
+    //取得選定刪除的購物車索引
+    let index = $(this).attr('data-index');
+
+    $.get("deleteItem.php", {index: index}, function(obj){
+        if(obj['success']){
+            location.reload();
+        } else {
+            alert(`${obj['info']}`);
+        }
+        console.log(obj);
     }, 'json');
 });

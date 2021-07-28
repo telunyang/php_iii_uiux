@@ -16,11 +16,12 @@ if( isset($_POST['prod_id']) && isset($_POST['prod_name']) &&
 
     //判斷購物車裡面的商品，是否有重複，若有，則將數量進行更新
     $hasProductId = false;
-    foreach($_SESSION['cart'] as $key => $obj){
+    foreach($_SESSION['cart'] as $index => $obj){
         if( $obj['prod_id'] == (int)$_POST['prod_id'] && 
             $obj['prod_color'] == $_POST['prod_color']){
+                
             //更新商品數量
-            $_SESSION['cart'][$key]['prod_qty'] += (int)$_POST['prod_qty'];
+            $_SESSION['cart'][$index]['prod_qty'] += (int)$_POST['prod_qty'];
             
             //更新 bool 值，代表購物車內有重複的商品
             $hasProductId = true;
@@ -31,16 +32,13 @@ if( isset($_POST['prod_id']) && isset($_POST['prod_name']) &&
     if($hasProductId == false){
         $_SESSION['cart'][] = [
             "prod_id" => (int)$_POST['prod_id'],
-            "prod_name'" => $_POST['prod_name'],
+            "prod_name" => $_POST['prod_name'],
             "prod_thumbnail" => $_POST['prod_thumbnail'],
             "prod_price" => (int)$_POST['prod_price'],
             "prod_color" => $_POST['prod_color'],
             "prod_qty" => (int)$_POST['prod_qty']
         ];
     }
-
-    //記錄購物車裡面的商品數量
-    $_SESSION['count_products'] = count($_SESSION['cart']);
 
     //設定訊息
     $obj['success'] = true;
