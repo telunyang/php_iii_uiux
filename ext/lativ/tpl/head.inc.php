@@ -16,6 +16,9 @@
 
     <!-- lightbox: https://lokeshdhakar.com/projects/lightbox2/ -->
     <link href="css/lightbox.min.css" rel="stylesheet">
+
+    <!-- 信用卡套件 -->
+    <link rel="stylesheet" href="css/card.css" type="text/css">
 </head>
 <body>
     <div class="container-fluid">

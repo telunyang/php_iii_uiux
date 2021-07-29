@@ -257,3 +257,27 @@ $('a.delete').click(function(event){
         console.log(obj);
     }, 'json');
 });
+
+//確認優惠代碼是否可以使用
+$('a#check_coupon_code').click(function(event){
+    //避免元素的預設事件被觸發
+    event.preventDefault();
+
+    //取得優惠代碼
+    let code = $('input[name="coupon_code"]').val();
+
+    //如果代碼為空，就不往下執行
+    if(code == '') {
+        alert('請輸入優惠代碼');
+        return false;
+    }
+
+    $.post("getCoupon.php", {code: code}, function(obj){
+        if(obj['success']){
+            alert(`${obj['info']}`);
+        } else {
+            alert(`${obj['info']}`);
+        }
+        console.log(obj);
+    }, 'json');
+});

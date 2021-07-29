@@ -44,6 +44,12 @@ if( isset($_POST['email']) &&
             $obj['success'] = true;
             $obj['info'] = "註冊成功";
 
+            //註冊成功時，額外新增優惠券代碼，供結帳時使用
+            $coupon_code = md5( date('YmdHis') );
+            $sqlCoupon = "INSERT INTO `coupon` (`email`, `code`) 
+                            VALUES ('{$_POST['email']}', '{$coupon_code}')";
+            $pdo->query($sqlCoupon);
+
             //建立 session 資料
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['name'] = $_POST['name'];

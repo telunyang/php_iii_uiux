@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2021-07-27 00:43:31
+-- 產生時間： 2021-07-30 01:17:00
 -- 伺服器版本： 10.4.20-MariaDB
 -- PHP 版本： 8.0.8
 
@@ -775,6 +775,70 @@ INSERT INTO `categories` (`id`, `cat_name`, `parent_id`, `created_at`, `updated_
 (731, '緊身褲', 729, '2021-07-20 01:34:45', '2021-07-20 01:34:45'),
 (732, '配件類-童', 723, '2021-07-20 01:34:45', '2021-07-20 01:34:45'),
 (733, '毛巾底襪', 732, '2021-07-20 01:34:45', '2021-07-20 01:34:45');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `coupon`
+--
+
+CREATE TABLE `coupon` (
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'E-mail',
+  `code` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'coupon代碼',
+  `isUsed` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否被使用(0:無;1:有)',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='優惠券';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL COMMENT '流水號',
+  `order_id` varchar(13) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '訂單編號',
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '使用者 E-mail',
+  `transport_area` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '運送地區',
+  `transport_type` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '運送方式',
+  `transport_payment` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '付款方式',
+  `transport_arrival_time` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '送達時間',
+  `recipient_email` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '收件者 E-mail',
+  `recipient_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '收件者姓名',
+  `recipient_phone_number` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '收件者手機號碼',
+  `recipient_address` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '收件者地址',
+  `recipient_comments` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '收件者備註',
+  `invoice_type` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '發票類型',
+  `invoice_carrier` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '發票載具',
+  `invoice_carrier_number` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '發票載具編號',
+  `coupon_code` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '優惠券代碼',
+  `card_number` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '信用卡號碼',
+  `card_valid_date` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '信用卡到期年限',
+  `card_ccv` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '信用卡CCV',
+  `card_holder` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '信用卡持有人',
+  `total` int(11) DEFAULT NULL COMMENT '總額',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='訂單';
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `orders_detail`
+--
+
+CREATE TABLE `orders_detail` (
+  `order_id` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '訂單編號',
+  `prod_id` int(11) NOT NULL COMMENT '商品編號',
+  `prod_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品名稱',
+  `prod_price` int(11) NOT NULL COMMENT '商品價格',
+  `prod_color` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品顏色',
+  `prod_qty` int(11) NOT NULL COMMENT '商品數量',
+  `prod_subtotal` int(11) NOT NULL COMMENT '商品小計',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='商品明細';
 
 -- --------------------------------------------------------
 
@@ -33060,6 +33124,25 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 資料表索引 `coupon`
+--
+ALTER TABLE `coupon`
+  ADD PRIMARY KEY (`email`,`code`);
+
+--
+-- 資料表索引 `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `order_id` (`order_id`);
+
+--
+-- 資料表索引 `orders_detail`
+--
+ALTER TABLE `orders_detail`
+  ADD PRIMARY KEY (`order_id`,`prod_id`);
+
+--
 -- 資料表索引 `products`
 --
 ALTER TABLE `products`
@@ -33092,6 +33175,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=734;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號';
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `products`
