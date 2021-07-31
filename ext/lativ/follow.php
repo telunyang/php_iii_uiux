@@ -33,7 +33,7 @@
                     <td><?= $obj['prod_name'] ?></td>
                     <td><img src="<?= $obj['prod_thumbnail'] ?>" class="img-thumbnail"></td>
                     <td><?= $obj['prod_price'] ?></td>
-                    <td><a href="detail.php?prod_id=<?= $obj['prod_id'] ?>">商品明細頁面</a></td>
+                    <td><a href="detail.php?prod_id=<?= $obj['prod_id'] ?>">進入購買</a></td>
                 </tr>
 
             <?php 

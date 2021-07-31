@@ -44,43 +44,41 @@ try {
 
 
 //你的 excel 檔案路徑 (含檔名)
-$inputFileName = './products.xlsx';
+$inputFileName = './轉檔.xlsx';
 
 //透過套件功能來讀取 excel 檔
 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
 
+//取得指定名稱工作表
+$worksheet = $spreadsheet->getSheetByName('products'); //或 $spreadsheet->->getSheet(2);
+
 //讀取當前工作表(sheet)的資料列數
-$highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
+$highestRow = $worksheet->getHighestRow();
 
 //依序讀取每一列，若是第一列為標題，建議 $i 從 2 開始
 for($i = 2; $i <= $highestRow; $i++) {
     //若是某欄位值為空，代表那一列可能都沒資料，便跳出迴圈
-    if( $spreadsheet->getActiveSheet()->getCell('A'.$i)->getValue() === '' || 
-        $spreadsheet->getActiveSheet()->getCell('A'.$i)->getValue() === null ) break;
+    if( $worksheet->getCell('A'.$i)->getValue() === '' || 
+        $worksheet->getCell('A'.$i)->getValue() === null ) break;
     
     //讀取 cell 值
-    $itemName =         $spreadsheet->getActiveSheet()->getCell('A'.$i)->getValue();
-    $itemImg =          $spreadsheet->getActiveSheet()->getCell('B'.$i)->getValue();
-    $itemPrice =        $spreadsheet->getActiveSheet()->getCell('C'.$i)->getValue();
-    $itemQty =          $spreadsheet->getActiveSheet()->getCell('D'.$i)->getValue();
-    $itemCategoryId =   $spreadsheet->getActiveSheet()->getCell('E'.$i)->getValue();
+    $id =               $worksheet->getCell('A'.$i)->getValue();
+    $prod_name =        $worksheet->getCell('B'.$i)->getValue();
+    $prod_thumbnail =   $worksheet->getCell('C'.$i)->getValue();
+    $prod_image =       $worksheet->getCell('D'.$i)->getValue();
+    $prod_price =       $worksheet->getCell('E'.$i)->getValue();
+    $prod_description = $worksheet->getCell('F'.$i)->getValue();
+    $cat_id =           $worksheet->getCell('G'.$i)->getValue();
     
     //寫入資料
-    $sql = "INSERT INTO `items` 
-            (`itemName`,`itemImg`,`itemPrice`,`itemQty`,`itemCategoryId`) 
-            VALUES 
-            (?,?,?,?,?)";
-    $stmt = $pdo->prepare($sql);
-    $arrParam = [
-        $itemName,
-        $itemImg,
-        $itemPrice,
-        $itemQty,
-        $itemCategoryId
-    ];
-
-    //繫結資料並執行
-    $stmt->execute($arrParam);
+    $sql = "INSERT INTO `products`(
+        `id`, `prod_name`, `prod_thumbnail`, `prod_image`, `prod_price`, 
+        `prod_description`, `cat_id`
+        ) VALUES (
+            {$id}, '{$prod_name}', '{$prod_thumbnail}', '{$prod_image}', {$prod_price}, 
+            '{$prod_description}', {$cat_id}
+            )";
+    $stmt = $pdo->query($sql);
 
     //若是成功寫入資料
     if( $stmt->rowCount() > 0 ){
