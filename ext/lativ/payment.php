@@ -8,19 +8,20 @@ if( !isset($_SESSION['cart']) ){
 }
 
 //將表單資訊寫入 session，之後建立訂單時，一起變成訂單資訊
-$_SESSION['transport_area'] = $_POST['transport_area'];
-$_SESSION['transport_type'] = $_POST['transport_type'];
-$_SESSION['transport_payment'] = $_POST['transport_payment'];
-$_SESSION['transport_arrival_time'] = $_POST['transport_arrival_time'];
-$_SESSION['recipient_email'] = $_POST['recipient_email'];
-$_SESSION['recipient_name'] = $_POST['recipient_name'];
-$_SESSION['recipient_phone_number'] = $_POST['recipient_phone_number'];
-$_SESSION['recipient_address'] = $_POST['recipient_address'];
-$_SESSION['recipient_comments'] = $_POST['recipient_comments'];
-$_SESSION['invoice_type'] = $_POST['invoice_type'];
-$_SESSION['invoice_carrier'] = $_POST['invoice_carrier'];
-$_SESSION['invoice_carrier_number'] = $_POST['invoice_carrier_number'];
-$_SESSION['coupon_code'] = $_POST['coupon_code'];
+$_SESSION['form'] = [];
+$_SESSION['form']['transport_area'] = $_POST['transport_area'];
+$_SESSION['form']['transport_type'] = $_POST['transport_type'];
+$_SESSION['form']['transport_payment'] = $_POST['transport_payment'];
+$_SESSION['form']['transport_arrival_time'] = $_POST['transport_arrival_time'];
+$_SESSION['form']['recipient_email'] = $_POST['recipient_email'];
+$_SESSION['form']['recipient_name'] = $_POST['recipient_name'];
+$_SESSION['form']['recipient_phone_number'] = $_POST['recipient_phone_number'];
+$_SESSION['form']['recipient_address'] = $_POST['recipient_address'];
+$_SESSION['form']['recipient_comments'] = $_POST['recipient_comments'];
+$_SESSION['form']['invoice_type'] = $_POST['invoice_type'];
+$_SESSION['form']['invoice_carrier'] = $_POST['invoice_carrier'];
+$_SESSION['form']['invoice_carrier_number'] = $_POST['invoice_carrier_number'];
+$_SESSION['form']['coupon_code'] = $_POST['coupon_code'];
 ?>
 <?php require_once 'tpl/head.inc.php' ?>
 

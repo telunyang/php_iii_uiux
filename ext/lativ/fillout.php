@@ -159,8 +159,6 @@ if( isset($_POST['index']) && isset($_POST['qty']) ){
                 </div>
             </div>
 
-            
-
             <!-- 購物明細 -->
             <div class="col-6 px-5">
                 <div class="row border-3 border-bottom">

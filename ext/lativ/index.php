@@ -34,7 +34,7 @@ $offset = ($page - 1) * $numPerPage;
         <!-- 商品一覽 -->
         <div class="row">
             <?php if(isset($_GET['sub_cat_id'])) { ?>
-            <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+            <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 py-2">
             <?php
                 $sql = "SELECT `id`, `prod_name`, `prod_thumbnail`, `prod_price` 
                         FROM `products` 

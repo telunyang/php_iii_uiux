@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once 'db.inc.php';
 
 //預設訊息
 $obj['success'] = false;

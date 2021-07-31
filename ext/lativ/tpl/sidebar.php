@@ -7,6 +7,10 @@
             foreach($arr1 as $obj1){
         ?>
         <li class="nav-item">
+            <!--
+                有超連結的第一階類別
+                <a class="nav-link" href="index.php?cat_id=<?= $_GET['cat_id'] ?>&sub_cat_id=<?= $obj1['id'] ?>"><?= $obj1['cat_name'] ?></a>
+            -->
             <?= $obj1['cat_name'] ?>
             <ul class="nav flex-column">
             <?php

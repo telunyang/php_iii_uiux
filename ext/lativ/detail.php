@@ -75,7 +75,11 @@
                                 data-prod-name="<?= $obj['prod_name'] ?>"
                                 data-prod-thumbnail="<?= $obj['prod_thumbnail'] ?>"
                                 data-prod-price="<?= $obj['prod_price'] ?>">加入購物車</button>
-                        <button type="button" class="btn btn-secondary">追蹤商品</button>
+                        <button 
+                                type="button" 
+                                class="btn btn-secondary"
+                                id="btn_follow" 
+                                data-prod-id="<?= $obj['id'] ?>">追蹤商品</button>
                     </div>
                 </div>
             </div>

@@ -281,3 +281,26 @@ $('a#check_coupon_code').click(function(event){
         console.log(obj);
     }, 'json');
 });
+
+//商品追蹤
+$('button#btn_follow').click(function(event){
+    //避免元素的預設事件被觸發
+    event.preventDefault();
+
+    //取得 button 的 jQuery 物件
+    let btn = $(this);
+
+    //送出 post 請求，加入購物車
+    let objProduct = {
+        prod_id: btn.attr('data-prod-id'),
+    };
+    $.post("insertProductsFollow.php", objProduct, function(obj){
+        if(obj['success']){
+            //成功訊息
+            alert('商品追蹤成功');
+        } else {
+            alert(`${obj['info']}`);
+        }
+        console.log(obj);
+    }, 'json');
+});

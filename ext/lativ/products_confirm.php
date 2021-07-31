@@ -89,12 +89,15 @@
             </table>
         </div>
 
+        <!-- 購物車內商品數量大於 0，才會出現下一步按鈕 -->
+        <?php if($count > 0) { ?>
         <div class="row mb-3">
             <div class="col-10"></div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary">下一步</button>
             </div>
         </div>
+        <?php } ?>
 
     </div>
 </form>

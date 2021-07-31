@@ -43,8 +43,8 @@
                             ?>
                         </ul>
 
-                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                            <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get" action="search.php">
+                            <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" name="keyword">
                         </form>
 
                         <div class="text-end">
@@ -52,9 +52,9 @@
                             <a class="btn btn-warning" href="register.php" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign-up</a>
                         </div>
 
-                        <div class="text-end">
+                        <div class="ml-5">
                             <?php if(isset($_SESSION['name'])){ ?>
-                                <?= $_SESSION['name'] ?> | <a href="#" id="logout" class="btn btn-link">登出</a>
+                                <?= $_SESSION['name'] ?> | <a href="#" id="logout">登出</a>
                             <?php } ?>
                             |
                             <a href="products_confirm.php">
@@ -67,6 +67,7 @@
                                     ?>
                                 </span> 個商品
                             </a>
+                            | <a href="orders.php">訂單查詢</a> | <a href="follow.php">商品追蹤</a>
                         </div>
                     </div>
                 </div>
