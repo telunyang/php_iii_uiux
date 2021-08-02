@@ -33,9 +33,10 @@
 
                 //取得訂單明細
                 $sql = "SELECT * FROM `orders_detail` WHERE `order_id` = '{$_GET['order_id']}'";
-                $arr = $pdo->query($sql)->fetchAll();
-                foreach($arr as $obj){
-                    $total += $obj['prod_price'] * $obj['prod_qty'];
+                $stmt = $pdo->query($sql);
+                if($stmt->rowCount() > 0){
+                    foreach($stmt->fetchAll() as $obj){
+                        $total += $obj['prod_price'] * $obj['prod_qty'];
             ?>
                 <tr>
                     <td>
@@ -54,6 +55,7 @@
                     <td><?= $obj['prod_price'] * $obj['prod_qty'] ?></td>
                 </tr>
             <?php
+                    }
                 }
             }
             ?>

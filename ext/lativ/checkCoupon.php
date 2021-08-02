@@ -41,7 +41,7 @@ if( isset($_POST['code']) ){
          */
         switch($pdo->errorInfo()[1]){
             case 1062:
-                $obj['info'] = '此帳號已註冊';
+                $obj['info'] = '此代碼已重複';
             break;
 
             case 1064:

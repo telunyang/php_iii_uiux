@@ -272,7 +272,7 @@ $('a#check_coupon_code').click(function(event){
         return false;
     }
 
-    $.post("getCoupon.php", {code: code}, function(obj){
+    $.post("checkCoupon.php", {code: code}, function(obj){
         if(obj['success']){
             alert(`${obj['info']}`);
         } else {

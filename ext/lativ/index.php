@@ -40,8 +40,17 @@ $offset = ($page - 1) * $numPerPage;
                         FROM `products` 
                         WHERE `cat_id` = {$_GET['sub_cat_id']} 
                         LIMIT {$offset}, {$numPerPage}";
-                $arr = $pdo->query($sql)->fetchAll();
-                foreach($arr as $obj){
+                $stmt = $pdo->query($sql);
+                if($stmt->rowCount() > 0){
+                    /**
+                     * 如果查詢結果很多筆
+                     * $stmt->fetchAll()
+                     * 
+                     * 如果查詢只有一筆
+                     * $stmt->fetch()
+                     */
+                    $arr = $stmt->fetchAll();
+                    foreach($arr as $obj){
             ?>
                 <div class="col">
                     <div class="card" style="width: 18rem;">
@@ -56,6 +65,7 @@ $offset = ($page - 1) * $numPerPage;
                     </div>
                 </div>
             <?php
+                    }
                 }
             }
             ?>
@@ -64,8 +74,8 @@ $offset = ($page - 1) * $numPerPage;
 
         <!-- 分頁 -->
         <?php if( isset($_GET['cat_id']) && isset($_GET['sub_cat_id']) ){ ?>
-        <div class="row">
             
+        <div class="row">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <!-- 第一頁 -->
@@ -118,8 +128,8 @@ $offset = ($page - 1) * $numPerPage;
                     </li>
                 </ul>
             </nav>
-            
         </div>
+
         <?php } ?>
 
     </div>

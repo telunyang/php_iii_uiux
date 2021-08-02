@@ -59,12 +59,12 @@
                             |
                             <a href="products_confirm.php">
                                 <span id="count_products">
-                                    <?php 
-                                    if(isset($_SESSION['cart'])) 
-                                        echo count($_SESSION['cart']); 
-                                    else 
-                                        echo '0'; 
-                                    ?>
+                                <?php 
+                                if(isset($_SESSION['cart'])) 
+                                    echo count($_SESSION['cart']); 
+                                else 
+                                    echo '0'; 
+                                ?>
                                 </span> 個商品
                             </a>
                             | <a href="orders.php">訂單查詢</a> | <a href="follow.php">商品追蹤</a>

@@ -14,11 +14,13 @@ require_once 'db.inc.php';
 $obj['success'] = false;
 $obj['info'] = "商品追蹤失敗";
 
-//確認所有傳過來的表單資料是否完整
-if( isset($_POST['prod_id'])){
+if( !isset($_SESSION['email'])){ //確認登入與否
+    $obj['info'] = '請先登入';
+} else if( isset($_POST['prod_id'])){ //確認前端請求資料是否完整
     try{
         //新增商品追蹤的 SQL 語法
-        $sql = "INSERT INTO `products_follow` (`email`, `prod_id`) VALUES ('{$_SESSION['email']}', {$_POST['prod_id']})";
+        $sql = "INSERT INTO `products_follow` (`email`, `prod_id`) 
+                VALUES ('{$_SESSION['email']}', {$_POST['prod_id']})";
         
         //執行 SQL 語法
         $stmt = $pdo->query($sql);
