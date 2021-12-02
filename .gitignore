@@ -7,12 +7,13 @@ phpquery.php
 
 # custom
 cart
-shopping_cart
+old_shopping_cart
+admin
 plugins
 images
 offer.jpg
 tree.php
 products.xlsx
 linestickers_download.php
-轉檔.xlsx
-images.zip
+test.*
+PHP_Homework.*

@@ -50,11 +50,11 @@
                 <div class="modal-body">
                     <form class="row g-3" id="myForm_login">
                         <div class="col-md-12">
-                            <label for="inputEmail4" class="form-label">Email</label>
+                            <label for="email_login" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email_login" placeholder="請填寫 E-mail">
                         </div>
                         <div class="col-md-12">
-                            <label for="inputPassword4" class="form-label">密碼</label>
+                            <label for="pwd_login" class="form-label">密碼</label>
                             <input type="password" class="form-control" id="pwd_login" placeholder="請輸入密碼">
                         </div>
                         <div class="col-12">

@@ -1,12 +1,4 @@
 <?php
-/**
- * 開啟 session，準備在註冊成功時，建立 email 在 session 當中，
- * 之後會透過 $_SESSION['email'] 作為訂單成立 (寫入訂單資料表) 前的判斷，
- * 有 $_SESSION['email'] 就可以新增訂單和訂單明細，
- * 沒有就請你登入，或是註冊帳號。
- */
-session_start();
-
 //匯入資料庫
 require_once 'db.inc.php';
 
@@ -24,12 +16,16 @@ if( isset($_POST['email']) &&
     //設定密碼的雜湊值
     $pwd = sha1($_POST['pwd']);
 
+    //產生驗證碼
+    $verified_code = md5( date("YmdHis") );
+
     try{
         //新增使用者的 SQL 語法
-        $sql = "INSERT INTO `users` (`email`, `pwd`, `name`, `birthdate`, `address`)
+        $sql = "INSERT INTO `users` (`email`, `pwd`, `verified_code`, `name`, `birthdate`, `address`)
                 VALUES (
                     '{$_POST['email']}', 
                     '{$pwd}', 
+                    '{$verified_code}',
                     '{$_POST['name']}', 
                     '{$_POST['birthdate']}', 
                     '{$_POST['address']}'
@@ -49,6 +45,14 @@ if( isset($_POST['email']) &&
             $sqlCoupon = "INSERT INTO `coupon` (`email`, `code`, `percentage`) 
                             VALUES ('{$_POST['email']}', '{$coupon_code}', 0.8)";
             $pdo->query($sqlCoupon);
+
+            /**
+             * 開啟 session，準備在註冊成功時，建立 email 在 session 當中，
+             * 之後會透過 $_SESSION['email'] 作為訂單成立 (寫入訂單資料表) 前的判斷，
+             * 有 $_SESSION['email'] 就可以新增訂單和訂單明細，
+             * 沒有就請你登入，或是註冊帳號。
+             */
+            session_start();
 
             //建立 session 資料
             $_SESSION['email'] = $_POST['email'];

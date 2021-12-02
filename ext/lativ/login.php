@@ -1,12 +1,4 @@
 <?php
-/**
- * 開啟 session，準備在註冊成功時，建立 email 在 session 當中，
- * 之後會透過 $_SESSION['email'] 作為訂單成立 (寫入訂單資料表) 前的判斷，
- * 有 $_SESSION['email'] 就可以新增訂單和訂單明細，
- * 沒有就請你登入，或是註冊帳號。
- */
-session_start();
-
 //匯入資料庫
 require_once 'db.inc.php';
 
@@ -24,7 +16,8 @@ if( isset($_POST['email']) && isset($_POST['pwd']) ){
         $sql = "SELECT `email`, `name` 
                 FROM `users` 
                 WHERE `email` = '{$_POST['email']}'
-                AND `pwd` = '{$pwd}'";
+                AND `pwd` = '{$pwd}'
+                AND `isActivated` = 1 ";
 
         //執行 SQL 語法
         $stmt = $pdo->query($sql);
@@ -37,6 +30,14 @@ if( isset($_POST['email']) && isset($_POST['pwd']) ){
 
             //取得使用者資料(物件型態)
             $objUser = $stmt->fetch();
+
+            /**
+             * 開啟 session，準備在註冊成功時，建立 email 在 session 當中，
+             * 之後會透過 $_SESSION['email'] 作為訂單成立 (寫入訂單資料表) 前的判斷，
+             * 有 $_SESSION['email'] 就可以新增訂單和訂單明細，
+             * 沒有就請你登入，或是註冊帳號。
+             */
+            session_start();
 
             //建立 session 資料
             $_SESSION['email'] = $objUser['email'];

@@ -1,10 +1,5 @@
 <?php
-/**
- * 開啟 session，準備在註冊成功時，建立 email 在 session 當中，
- * 之後會透過 $_SESSION['email'] 作為訂單成立 (寫入訂單資料表) 前的判斷，
- * 有 $_SESSION['email'] 就可以新增訂單和訂單明細，
- * 沒有就請你登入，或是註冊帳號。
- */
+//開啟 session
 session_start();
 
 //匯入資料庫
