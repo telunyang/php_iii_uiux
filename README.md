@@ -9,15 +9,19 @@
 - HTML Boilerplate
 - HTML Snippets
 - PHP IntelliSense
+
 專案與程式
 - Windows 環境裡，放置於 C:\xampp\htdocs\
 - http://localhost/ 或 http://127.0.0.1/ (Mac是http://192.168.64.2/)
+
 學習、檢索 PHP 的網站
 - https://www.php.net/
 - https://www.runoob.com/php/php-tutorial.html
 - https://www.w3schools.com/php/default.asp
+
 使用 header() 重導頁面，提供非純文字的特殊效果，可參考：
 - https://codemyui.com/tag/text-animation/
+
 靜態 HTML parser
 - https://code.google.com/archive/p/phpquery/
 
